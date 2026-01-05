@@ -13,6 +13,8 @@ Here are the steps to run the complete app:
 
 - MapBox API key in KotlinProject/.env (see KotlinProject/ENV_SETUP.md)
 - Any LLM API key in python-ai-service/.env (details below)
+
+[dockerization in progress]
 - Have Docker installed.
 - Have Python and venv installed.
 - Java 21.
@@ -34,31 +36,22 @@ Here are the steps to run the complete app:
 
 ### 3. Run Python Server
 
-    - How to get the the API and where to insert it
-      1. The API key can generated from any LLM's website, it can be paid or free depending on the LLM's policy
-          Example : Anthropic, OpenAI, Ollama, Google
-      2. Any LLM API key can be used, it should be in working state
-      3. Insert your API in .env file of python-ai-service directory, give it a name and store it
-          - Example : Google_API_KEY  = sk-fjnsjf-fsbfbsjn-erijreijrn-fsnfj38349-jfsi24
-      4. To run : it should be loaded inside ai_service.py file
-          - load_dotenv() : loads the .env file and using os.getenv(API_Name) will load it
-            - api_key = os.getenv("ANTHROPIC_API_KEY")
+    1. The API key can be generated from any LLM's website (paid / free depending on the LLM)
+      - e.g Anthropic, OpenAI, Ollama, Google
+    2. Any LLM API key can be used so long as it's working
+    3. Insert your API key in the .env file of the python-ai-service directory, give it a name and store it
+    4. To run: it should be loaded inside ai_service.py file
+      - load_dotenv() : loads the .env file and using os.getenv(API_Name) will load it
+      - api_key = os.getenv("ANTHROPIC_API_KEY")
           
   Next Steps :
     
   - On macOS/Linux
     ```shell
     # under python-ai-service/
-    # Create Python enviroment inside python-ai-service directory
     python3 -m venv venv
-    
-    # Install everything from requirements 
     pip install -r requirements.txt
-    
-    # Activate Python Environment
     source .venv/bin/activate
-    
-    #Run the app
     python3 ai_service.py
     ```
     
@@ -68,24 +61,3 @@ Here are the steps to run the complete app:
     # under KotlinProject/
     ./gradlew :composeApp:jsBrowserDevelopmentRun
     ```
-
-# Contribution
-
-1.  Clone the repository and create a new branch off of `dev-sprint-n` , n being the sprint number: 
-```
-git clone https://github.com/EECS3311F25/project-group-ak.git
-cd project-group-ak
-git checkout -b name_for_new_branch develop
-```
-2.  Make your changes and test them thoroughly.
-3. Submit a pull request to `dev-sprint-n` with a clear, detailed description of your changes and screenshots if relevant.
-
-# Communication
-
-Our Jira Board: https://team-ak.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMGI1NWU0N2ZmYzU1NDRjYWFiMzllYzEzYjIxMzYzMGUiLCJwIjoiaiJ9
-Our Discord: https://discord.gg/B75MfygcSU
-
-
-
-
-
