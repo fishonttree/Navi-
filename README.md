@@ -32,15 +32,3 @@ Here are the steps to run the complete app:
     # under KotlinProject/
     ./gradlew :composeApp:jsBrowserDevelopmentRun
     ```
-
-# TODO
-
-##  Dockerize for local dev
-- PostgreSQL (done)
-- Python AI server (done, not needed atm)
-- KMP app (including Ktor backend, JS target run)
-
-##  Dockerize for deployment
-- PostgreSQL: change + secure credentials
-- KMP app
-- more to come...
