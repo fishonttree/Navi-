@@ -9,34 +9,38 @@ KMP allows Navi to work on multiple platforms, the currently working one with Ma
 
 Here are the steps to run the complete app:
 
-### Requirements
-
+## Requirements
+- Install Docker
 - MapBox API key in KotlinProject/.env
 - Any LLM API key in python-ai-service/.env (this fork ain't got one)
+- Ability to run 4 apps at once
 
-[dockerization in progress]
-- Have Docker installed.
-- Have Python and venv installed (not needed atm)
-- Java 21.
-- Ability to run 4 apps at once.
+# How to run
 
-### TODO
-  docker-compose.yml should run all containers:
-- PostgreSQL (need to secure credentials)
-- Python AI server (done)
-- KMP app (including Ktor backend, JS target run)
+##  0.  Run Docker stuff
 
-
-### 1. Run Ktor Backend
+##  1.  Run Ktor backend
   - On macOS/Linux
     ```shell
     # under KotlinProject/
     ./gradlew :server:run
     ```
 
-### 3. Build and Run JS Target
+## 2. Build and Run JS Target
   - on macOS/Linux
     ```shell
     # under KotlinProject/
     ./gradlew :composeApp:jsBrowserDevelopmentRun
     ```
+
+# TODO
+
+##  Dockerize for local dev
+- PostgreSQL (done)
+- Python AI server (done, not needed atm)
+- KMP app (including Ktor backend, JS target run)
+
+##  Dockerize for deployment
+- PostgreSQL: change + secure credentials
+- KMP app
+- more to come...
