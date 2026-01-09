@@ -14,7 +14,6 @@ composeMultiplatform = "1.9.0"
 decompose = "3.1.0"
 flywayCore = "11.17.0"
 flywayCoreVersion = "10.15.0"
-flywaydbFlywayCore = "10.10.0"
 junit = "4.13.2"
 kotlin = "2.2.20"
 kotlinx-coroutines = "1.10.2"
@@ -36,8 +35,6 @@ h2 = "2.4.240"
 postgresqlVersion = "42.7.3"
 
 [libraries]
-flyway-core-v10100 = { module = "org.flywaydb:flyway-core", version.ref = "flywaydbFlywayCore" }
-flyway-core-v10150 = { module = "org.flywaydb:flyway-core", version.ref = "flywayCoreVersion" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }

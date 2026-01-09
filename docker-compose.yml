@@ -1,17 +1,8 @@
 services:
-#  navi-js-target:
-#    build:
-#    ports:
-#
-#    environment:
-#      POSTGRES_DB: ${POSTGRES_USER}
-#      ...
-
-  # if you use placeholder, credentials will be
-  # written in the execution commands
 
   navi_postgres-db:
     image: postgres:16
+    container_name: navi_postgres
     restart: always
     ports:
       - "5432:5432"
@@ -20,7 +11,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      - navi_data:/var/lib/postgresql/data
+      - navi_postgres-data:/var/lib/postgresql/data
 
 # TODO: software w/ free API key and its Docker image?
 # See AI_SUMMARY... + Summary.md for more stuff
@@ -35,4 +26,4 @@ services:
 #      - "postgres-db"
 
 volumes:
-  navi_data:
+  navi_postgres-data:

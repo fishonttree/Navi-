@@ -11,6 +11,7 @@ Here are the steps to run the complete app:
 
 ## Requirements
 - Install Docker
+- Install Java 21
 - MapBox API key in KotlinProject/.env
 - Any LLM API key in python-ai-service/.env (this fork ain't got one)
 - Ability to run 4 apps at once
@@ -18,6 +19,11 @@ Here are the steps to run the complete app:
 # How to run
 
 ##  0.  Run Docker stuff
+  - On macOS/Linux
+    ```shell
+    # under root
+    docker compose up -d
+    ```
 
 ##  1.  Run Ktor backend
   - On macOS/Linux
