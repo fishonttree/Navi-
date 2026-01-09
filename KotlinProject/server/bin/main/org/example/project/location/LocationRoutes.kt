@@ -28,7 +28,7 @@ fun Route.locationRoutes() {
         call.respond(result)
     }
 
-suspend fun respondRetrieve(call: ApplicationCall, mapboxId: String?, sessionId: String?) {
+    suspend fun respondRetrieve(call: ApplicationCall, mapboxId: String?, sessionId: String?) {
         println("LocationRoutes: /retrieve uri=${call.request.uri} mapboxId=$mapboxId sessionId=$sessionId")
 
         if (mapboxId.isNullOrBlank()) {
