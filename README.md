@@ -18,11 +18,11 @@ Here are the steps to run the complete app:
 
 # How to run
 
-##  0.  Containerize Postgres image
+##  0.  Containerize Postgres image and clear previous DB state
   - On macOS/Linux
     ```shell
-    # under root
-    docker compose up -d
+    # under KotlinProject
+    ./server/src/main/resources/db_create-tables/migration_script.sh
     ```
 
 ##  1.  Run Ktor backend
