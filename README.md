@@ -18,7 +18,7 @@ Here are the steps to run the complete app:
 
 # How to run
 
-##  0.  Containerize Postgres image and clear previous DB state
+##  0.  Containerize Postgres image, clear previous DB state & insert mock data
   - On macOS/Linux
     ```shell
     # under KotlinProject
