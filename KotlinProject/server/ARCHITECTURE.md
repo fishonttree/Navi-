@@ -4,7 +4,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                        CLIENT (Compose App)                      │
+│                        CLIENT (Compose App)                     │
 │                    Makes HTTP Requests                          │
 └──────────────────────────────┬──────────────────────────────────┘
                                │ JSON over HTTP
@@ -21,50 +21,50 @@
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    DATABASE INITIALIZATION                       │
+│                    DATABASE INITIALIZATION                      │
 │ ┌─────────────────────────────────────────────────────────────┐ │
-│ │  Database.kt                                                 │ │
+│ │  Database.kt                                                │ │
 │ │  1. DatabaseConfig.fromEnvironment()                        │ │
-│ │     → Loads: host, port, dbname, user, password            │ │
-│ │  2. Migrations.runMigrations()                             │ │
-│ │     → Runs SQL files from resources/db/migration/          │ │
-│ │  3. Database.connect()                                     │ │
-│ │     → Establishes Exposed connection pool                  │ │
+│ │     → Loads: host, port, dbname, user, password             │ │
+│ │  2. Migrations.runMigrations()                              │ │
+│ │     → Runs SQL files from resources/db/migration/           │ │
+│ │  3. Database.connect()                                      │ │
+│ │     → Establishes Exposed connection pool                   │ │
 │ └─────────────────────────────────────────────────────────────┘ │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                      HTTP REQUEST FLOW                           │
-│                                                                  │
-│  1. ROUTES LAYER (routes/UserRoutes.kt, routes/TripRoutes.kt)  │
+│                      HTTP REQUEST FLOW                          │
+│                                                                 │
+│  1. ROUTES LAYER (routes/UserRoutes.kt, routes/TripRoutes.kt)   │
 │     • Receives HTTP requests                                    │
 │     • Parses JSON → DTOs                                        │
 │     • Calls service layer                                       │
 │     • Returns HTTP responses with status codes                  │
-│                                                                  │
+│                                                                 │
 │  2. SERVICE LAYER (service/UserService.kt, service/TripService.kt) │
 │     • Input validation                                          │
 │     • Business rule enforcement                                 │
 │     • Calls repository                                          │
 │     • Returns Result<T> (success/failure)                       │
-│                                                                  │
-│  3. REPOSITORY LAYER (repository/TripRepositoryImpl.kt, etc)   │
+│                                                                 │
+│  3. REPOSITORY LAYER (repository/TripRepositoryImpl.kt, etc)    │
 │     • Abstraction over database                                 │
 │     • Wraps operations in suspendTransaction                    │
 │     • Calls DAOs                                                │
 │     • Maps DAOs → Domain Models                                 │
-│                                                                  │
-│  4. DAO LAYER (db/dao/TripDAO.kt, db/dao/EventDAO.kt)          │
+│                                                                 │
+│  4. DAO LAYER (db/dao/TripDAO.kt, db/dao/EventDAO.kt)           │
 │     • Exposed DAO operations                                    │
 │     • CRUD on table rows                                        │
 │     • Returns DAO entities                                      │
-│                                                                  │
-│  5. TABLE LAYER (db/tables/TripTable.kt, db/mapping.kt)        │
+│                                                                 │
+│  5. TABLE LAYER (db/tables/TripTable.kt, db/mapping.kt)         │
 │     • Exposed table definitions                                 │
 │     • Column definitions                                        │
 │     • Foreign keys, indexes                                     │
-│                                                                  │
+│                                                                 │
 └───────────────────────────────┬─────────────────────────────────┘
                                 │
                                 ▼
@@ -321,7 +321,21 @@ Database schema ready
 - `V3__add_indexes.sql` ✅
 - Pattern: `V{version}__{description}.sql`
 
-## Error Handling Strategy
+## (!!!) Error Handling Strategy
+
+    This file tells the app to run certain .sql files to set up the DB tables and data.
+
+    runMigrations(config: DatabaseConfig)
+    -   Flyway.configure.locations("classpath:db_create-tables"): find the .sql files in /server/src/main/resources/db_create-tables
+    -   Every time you want to change the schema, write a new version Vx__create_tables.sql (in number sequence) to migrate to it
+        *   DO NOT MODIFY existing .sql files. Your device 'remembers' existing .sql files by checksum, and will not run if it sees changes
+
+    What if there are too many versions or I don't remember where I've changed existing .sql files by accident?
+    1)  Run + access the DB in your terminal: docker exec -it navi_postgres psql -U postgres -d navi_db
+    2)  Delete all existing tables in this order: flyway_schema_history -> events -> trips -> users
+    3)  Uncomment flyway.repair()
+    4)  Re-initialize the DB connection, so that flyway.repair() wipes the local device's checksums, and make new migration history
+
 
 ### Service Layer Returns Result<T>
 
@@ -430,32 +444,3 @@ Add to `Database.kt`:
 ```kotlin
 addLogger(StdOutSqlLogger)
 ```
-
-### Check Migration Status
-```sql
-SELECT * FROM flyway_schema_history;
-```
-
-### Inspect Database
-```bash
-psql -d navi_db
-\dt              # List tables
-\d trip          # Describe trip table
-SELECT * FROM trip;
-```
-
-### Server Logs
-Look for:
-- "Database connected successfully"
-- "Database migrations completed successfully"
-- SQL queries (if logging enabled)
-- Error stack traces
-
-## References
-
-- [Ktor Documentation](https://ktor.io/docs/)
-- [Exposed Documentation](https://github.com/JetBrains/Exposed)
-- [Flyway Documentation](https://flywaydb.org/)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [Kotlin Coroutines](https://kotlinlang.org/docs/coroutines-overview.html)
-
