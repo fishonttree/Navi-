@@ -13,7 +13,7 @@ Here are the steps to run the complete app:
 - Install Docker
 - Install Java 21
 - MapBox API key in KotlinProject/.env
-- Any LLM API key in python-ai-service/.env (this fork ain't got one)
+- Any LLM API key in python-ai-service/.env (not needed; service has been suspended temporarily)
 - Ability to run 4 apps at once
 
 # How to run
