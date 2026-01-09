@@ -18,7 +18,7 @@ Here are the steps to run the complete app:
 
 # How to run
 
-##  0.  Run Docker stuff
+##  0.  Containerize Postgres image
   - On macOS/Linux
     ```shell
     # under root
