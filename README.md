@@ -1,4 +1,4 @@
-# Navi
+# Navi-
 
 **Navi** is a Kotlin-based platform that helps users plan, organize, and share trips collaboratively.  
 Users can create detailed itineraries, manage events, vote on plans, and receive intelligent suggestions for nearby activities and travel optimizations (not available atm).
@@ -8,7 +8,7 @@ A demo video (~55 MB) is available under the pre-release "Demo Video": https://g
 
 # Installation
 
-KMP allows Navi to work on multiple platforms, the currently working one with Map feature is the JS Target.
+KMP is meant to allow Navi to work on multiple platforms. The currently working one with Map feature is the JS Target.
 
 Here are the steps to run the complete app:
 
